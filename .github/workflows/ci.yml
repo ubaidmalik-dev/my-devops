@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main  # Runs pipeline when pushing to 'main' branch
+      - main  # Runs pipeline on push to 'main' branch
 
 jobs:
   build:
@@ -17,21 +17,18 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18  # Specifies Node.js version
-
-      - name: Fix Permissions (if required)
-        run: sudo chown -R $(whoami) ~/.npm
+          cache: 'npm'  # Caches node_modules for faster builds
 
       - name: Install Dependencies
         run: |
-          rm -rf node_modules package-lock.json  # Clean old dependencies
-          npm ci --force  # Install dependencies with a clean setup
+          npm ci  # Ensures clean and reliable dependency installation
 
       - name: Run Tests (Optional)
         run: |
           echo "Running tests..."
-          # Uncomment the below line if you have tests
+          # Uncomment the line below if you have tests
           # npm test
 
       - name: Deploy Code (Placeholder)
         run: echo "Deploying project..."
-        # Add actual deployment commands here, e.g., FTP, SSH, or CI/CD server
+        # Add actual deployment commands here (FTP, SSH, or CI/CD service)
