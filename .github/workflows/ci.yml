@@ -1,0 +1,28 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main  # Jab bhi 'main' branch par push hoga, pipeline chalegi
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Linux environment pe run karega
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3  # Repository ke files ko pull karega
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18  # Node.js ka version specify karein
+
+      - name: Install Dependencies
+        run: npm install  # Agar aapko dependencies install karni hain
+
+      - name: Run Tests (Optional)
+        run: echo "Running tests..."  # Agar tests likhne hain to yahan configure karein
+
+      - name: Deploy Code
+        run: echo "Deploying project..."  # Yahan aap FTP ya hosting server integration kar sakte hain
